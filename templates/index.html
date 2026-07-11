@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>बिजली विभाग - शिकायत केंद्र</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f4f8; margin: 0; padding: 20px; display: flex; justify-content: center; align-content: center; }
+        .container { background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 500px; border-top: 6px solid #e67e22; }
+        h2 { text-align: center; color: #2c3e50; margin-bottom: 5px; font-size: 24px; }
+        .subtitle { text-align: center; color: #7f8c8d; font-size: 14px; margin-bottom: 25px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #34495e; font-weight: bold; font-size: 14px; }
+        input[type="text"], input[type="tel"], select, textarea { width: 100%; padding: 12px; border: 1px solid #bdc3c7; border-radius: 6px; font-size: 15px; background-color: #fafafa; transition: border 0.3s; }
+        input:focus, select:focus, textarea:focus { border-color: #e67e22; outline: none; background-color: #fff; }
+        textarea { resize: vertical; height: 100px; }
+        button { width: 100%; padding: 14px; background-color: #e67e22; border: none; border-radius: 6px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+        button:hover { background-color: #d35400; }
+        .success-box { background-color: #d4edda; color: #155724; padding: 15px; border-radius: 6px; border-left: 5px solid #28a745; margin-bottom: 20px; font-size: 15px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>⚡ बिजली विभाग शिकायत केंद्र</h2>
+        <p class="subtitle">अपनी समस्या यहाँ दर्ज करें, जल्द ही समाधान किया जाएगा।</p>
+        
+        {% if success_msg %}
+        <div class="success-box">
+            {{ success_msg }}
+        </div>
+        {% endif %}
+
+        <form action="/submit" method="POST">
+            <div class="form-group">
+                <label for="name">आपका नाम *</label>
+                <input type="text" id="name" name="name" placeholder="अपना पूरा नाम लिखें" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">मोबाइल नंबर *</label>
+                <input type="tel" id="phone" name="phone" placeholder="10 अंकों का नंबर" pattern="[0-9]{10}" required>
+            </div>
+            <div class="form-group">
+                <label for="area">आपका इलाका / वार्ड *</label>
+                <input type="text" id="area" name="area" placeholder="जैसे: आज़ाद नगर, वार्ड नंबर 5" required>
+            </div>
+            <div class="form-group">
+                <label for="issue">समस्या का प्रकार *</label>
+                <select id="issue" name="issue" required>
+                    <option value="" disabled selected>चुनें...</option>
+                    <option value="बिजली गुल (No Power)">बिजली पूरी तरह गुल है</option>
+                    <option value="लो वोल्टेज (Low Voltage)">लो वोल्टेज की समस्या</option>
+                    <option value="तार/पोल की खराबी (Wire/Pole Issue)">तार टूटा है या पोल खराब है</option>
+                    <option value="मीटर की खराबी (Meter Fault)">मीटर में खराबी है</option>
+                    <option value="अन्य समस्या (Other)">अन्य कोई समस्या</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="details">समस्या का पूरा विवरण</label>
+                <textarea id="details" name="details" placeholder="अपनी समस्या के बारे में विस्तार से लिखें (वैकल्पिक)"></textarea>
+            </div>
+            <button type="submit">शिकायत दर्ज करें 📤</button>
+        </form>
+    </div>
+</body>
+</html>
